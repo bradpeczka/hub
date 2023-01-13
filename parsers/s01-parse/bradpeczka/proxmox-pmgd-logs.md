@@ -1,7 +1,7 @@
 # Description
 
-A parser for the Proxmox Mail Gateway (PMG) web admin interface.
-pmgdaemon listens on port 8006/tcp and writes authentication fails into syslog 
+A parser for the Proxmox Mail Gateway (PMG) API.
+pmgdaemon listens on 127.0.0.1:85/tcp and writes authentication fails from the pmgproxy front end into syslog 
 
 # Logs
 
@@ -27,7 +27,7 @@ Jan 13 11:31:36 pmgdev pmgdaemon[1183]: successful auth for user 'root@pam'
 
 # Explain output
 
-  - proxmox-pmg-logs parser is used only for authentication failures.
+  - proxmox-pmgd-logs parser is used only for authentication failures.
 
 ```
 <samples>
