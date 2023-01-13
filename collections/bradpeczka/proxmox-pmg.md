@@ -1,0 +1,1 @@
+A collection to detect brute forcers and spammers on Proxmox Mail Gateway (PMG).

@@ -1,0 +1,30 @@
+# PMG authentication bruteforce
+type: leaky
+name: bradpeczka/proxmox-pmg-bf
+description: "Detect Proxmox Mail Gateway bruteforce"
+filter: "evt.Meta.log_type == 'pmg_failed-auth'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+blackhole: 1m
+reprocess: true
+labels:
+ service: pmgdaemon
+ type: bruteforce
+ remediation: true
+---
+# PMG user enumeration
+type: leaky
+name: bradpeczka/proxmox-pmg-bf-user-enum
+description: "Detect Proxmox Mail Gateway user enumeration"
+filter: "evt.Meta.log_type == 'pmg_nosuch-user'"
+leakspeed: "10s"
+capacity: 5
+groupby: evt.Meta.source_ip
+distinct: evt.Meta.source_user
+blackhole: 1m
+reprocess: true
+labels:
+ service: pmgdaemon
+ type: bruteforce
+ remediation: true

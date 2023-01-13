@@ -1,0 +1,30 @@
+#debug: true
+name: bradpeczka/proxmox-pmg-logs
+description: "Parse Proxmox Mail Gateway logs for bruteforce attempts"
+filter: "evt.Parsed.program == 'pmgdaemon'"
+onsuccess: next_stage
+pattern_syntax:
+  PMG_AUTH_FAIL: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=auth failed'
+  PMG_NOSU_USER: 'authentication failure; rhost=%{IP:client_ip} user=%{USERNAME:source_user}@%{WORD:realm} msg=no such user'
+nodes:
+  - grok:
+      name: "PMG_AUTH_FAIL"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pmg_failed-auth
+        - meta: source_user
+          expression: "evt.Parsed.source_user"
+  - grok:
+      name: "PMG_NOSU_USER"
+      apply_on: message
+      statics:
+        - meta: log_type
+          value: pmg_nosuch-user
+        - meta: source_user
+          expression: "evt.Parsed.source_user"
+statics:
+    - meta: service
+      value: pmgdaemon
+    - meta: source_ip
+      expression: "evt.Parsed.client_ip"

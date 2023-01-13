@@ -1,0 +1,15 @@
+parsers:
+  - bradpeczka/proxmox-pmg-logs
+  - crowdsecurity/postfix-logs
+  - crowdsecurity/postscreen-logs
+  - crowdsecurity/syslog-logs
+scenarios:
+  - bradpeczka/proxmox-pmg-bf
+  - crowdsecurity/postfix-spam
+description: "Proxmox Mail Gateway support : parser for brute force and spammer detection"
+author: bradpeczka
+tags:
+  - proxmox
+  - pmg
+  - spam
+  - bruteforce
